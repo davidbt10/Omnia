@@ -12,8 +12,10 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
     ports:
-      - "8080"
-      - "8081"
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - ambev
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
@@ -27,7 +29,9 @@ services:
       POSTGRES_USER: developer
       POSTGRES_PASSWORD: ev@luAt10n
     ports:
-      - "5432"
+      - "5432:5432"
+    networks:
+      - ambev
     restart: unless-stopped
 
   ambev.developerevaluation.nosql:
@@ -37,7 +41,9 @@ services:
         MONGO_INITDB_ROOT_USERNAME: developer
         MONGO_INITDB_ROOT_PASSWORD: ev@luAt10n
     ports:
-      - "27017"
+      - "27017:27017"
+    networks:
+      - ambev
 
   ambev.developerevaluation.cache:
     container_name: ambev_developer_evaluation_cache 
@@ -47,4 +53,9 @@ services:
        MONGO_INITDB_ROOT_USERNAME: developer
        MONGO_INITDB_ROOT_PASSWORD: ev@luAt10n
     ports:
-       - "6379"
+       - "6379:6379"
+    networks:
+       - ambev
+
+networks:
+  ambev:
