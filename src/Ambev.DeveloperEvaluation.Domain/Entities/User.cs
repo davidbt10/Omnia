@@ -3,6 +3,7 @@ using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
@@ -42,7 +43,7 @@ public class User : BaseEntity, IUser
     /// Gets the user's role in the system.
     /// Determines the user's permissions and access levels.
     /// </summary>
-    public UserRole Role { get;     set; }
+    public UserRole Role { get; set; }
 
     /// <summary>
     /// Gets the user's current status.
@@ -77,6 +78,10 @@ public class User : BaseEntity, IUser
     /// </summary>
     /// <returns>The user's role as a string.</returns>
     string IUser.Role => Role.ToString();
+
+    public FullName Name { get; set; }
+
+    public Address Address { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the User class.
@@ -142,5 +147,15 @@ public class User : BaseEntity, IUser
     {
         Status = UserStatus.Suspended;
         UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void SetFullName(string firstName, string lastName)
+    {
+        Name = new FullName(firstName, lastName);
+    }
+
+    public void SetAddress (string street, string city, int number, string zipCode, string lat, string lng)
+    {
+        Address = new Address(city, street, number, zipCode, new Geolocation(lat, lng));
     }
 }

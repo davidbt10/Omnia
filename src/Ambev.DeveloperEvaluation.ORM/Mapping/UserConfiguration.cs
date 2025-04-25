@@ -1,7 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Text.RegularExpressions;
 
 namespace Ambev.DeveloperEvaluation.ORM.Mapping;
 
@@ -27,5 +26,51 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasConversion<string>()
             .HasMaxLength(20);
 
+        builder.OwnsOne(u => u.Name, name =>
+        {
+            name.Property(n => n.FirstName)
+                .HasColumnName("Name_FirstName")
+                .IsRequired()
+                .HasMaxLength(100);
+
+            name.Property(n => n.LastName)
+                .HasColumnName("Name_LastName")
+                .IsRequired()
+                .HasMaxLength(100);
+        });
+
+        builder.OwnsOne(u => u.Address, addr =>
+        {
+            addr.Property(a => a.City)
+                .HasColumnName("Address_City")
+                .IsRequired()
+                .HasMaxLength(100);
+
+            addr.Property(a => a.Street)
+                .HasColumnName("Address_Street")
+                .IsRequired()
+                .HasMaxLength(100);
+
+            addr.Property(a => a.Number)
+                .HasColumnName("Address_Number");
+
+            addr.Property(a => a.Zipcode)
+                .HasColumnName("Address_Zipcode")
+                .IsRequired()
+                .HasMaxLength(20);
+
+            addr.OwnsOne(a => a.Geolocation, geo =>
+            {
+                geo.Property(g => g.Lat)
+                    .HasColumnName("Address_Geolocation_Lat")
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                geo.Property(g => g.Long)
+                    .HasColumnName("Address_Geolocation_Long")
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+        });
     }
 }

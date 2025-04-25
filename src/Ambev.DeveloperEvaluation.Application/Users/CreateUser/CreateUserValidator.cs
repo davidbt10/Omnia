@@ -29,5 +29,13 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
         RuleFor(user => user.Phone).Matches(@"^\+?[1-9]\d{1,14}$");
         RuleFor(user => user.Status).NotEqual(UserStatus.Unknown);
         RuleFor(user => user.Role).NotEqual(UserRole.None);
+        RuleFor(x => x.FirstName).NotEmpty();
+        RuleFor(x => x.LastName).NotEmpty();
+        RuleFor(x => x.City).NotEmpty();
+        RuleFor(x => x.Street).NotEmpty();
+        RuleFor(x => x.Zipcode).NotEmpty();
+        RuleFor(x => x.Lat).NotEmpty();
+        RuleFor(x => x.Long).NotEmpty();
+        RuleFor(x => x.Phone).NotEmpty();
     }
 }

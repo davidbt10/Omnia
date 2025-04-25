@@ -15,7 +15,7 @@ public class CreateUserResponse
     /// <summary>
     /// The user's full name
     /// </summary>
-    public string Name { get; set; } = string.Empty;
+    public string UserName { get; set; } = string.Empty;
 
     /// <summary>
     /// The user's email address
@@ -36,4 +36,10 @@ public class CreateUserResponse
     /// The current status of the user
     /// </summary>
     public UserStatus Status { get; set; }
+
+    public UserName Name { get; set; }
+
+    public UserAddress Address { get; set; }
+
+    public string Password { get; set; }
 }

@@ -50,6 +50,22 @@ public class CreateUserCommand : IRequest<CreateUserResult>
     /// </summary>
     public UserRole Role { get; set; }
 
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
+
+    public string City { get; set; }
+
+    public string Street { get; set; }
+
+    public int Number { get; set; }
+
+    public string Zipcode { get; set; }
+
+    public string Lat { get; set; }
+
+    public string Long { get; set; }
+
 
     public ValidationResultDetail Validate()
     {
